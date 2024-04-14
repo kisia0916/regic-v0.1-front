@@ -9,7 +9,7 @@ function ProjectMain(){
             </div>
             <div className="projectMainRight">
                 <span className="projectMainTitle">Project Main</span>
-                <span className="projectInfo">4kb 2024/09/16</span>
+                <span className="projectInfo">size:4kb 2024/09/16</span>
             </div>
         </div>
     )
