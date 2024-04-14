@@ -1,0 +1,58 @@
+.machineMain{
+    width: 90%;
+    margin-top: 30px;
+    background-color: rgb(36, 39, 48);
+    margin: auto;
+    border-radius: 10px;
+    margin-top: 18px;
+}
+.machineMainWarp{
+    width: 100%;
+    display: flex;
+
+}
+.machineMainLeft{
+
+}
+.machineMainIcon{
+    width: 50px;
+    height: 50px;
+    margin-left: 9px;
+    margin-top: 7px;
+}
+.machineMainName{
+    display: flex;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 170%;
+    margin-top: 12px;
+    margin-left:8px;
+}
+.machineMainLine{
+    width: 91%;
+    height: 1px;
+    background-color: rgb(69, 68, 68);
+    margin: auto;
+    border-radius: 50px;
+}
+.machineMainBottom{
+    width: 100%;
+    height: 55px;
+    display: flex;
+    justify-content: space-around;
+}
+.machineMainStatus{
+    display: flex;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    font-size: 125%;
+}
+.machineMainStatusCpuIcon{
+    width: 30px;
+    height: 30px;
+    margin-top: 13px;
+}
+.machineMainStatusText{
+    margin-top: 15px;
+    margin-left: 4px;
+}

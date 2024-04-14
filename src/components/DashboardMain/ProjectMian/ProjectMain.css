@@ -1,0 +1,38 @@
+.projectMain{
+    width: 90%;
+    margin-top: 30px;
+    background-color: rgb(36, 39, 48);
+    margin: auto;
+    height: 80px;
+    border-radius: 10px;
+    margin-top: 18px;
+    display: flex;
+}
+.projectMainLeft{
+    display: flex;
+}
+.projectMainIcon{
+    width: 57px;
+    height: 57px;
+    margin: auto;
+    margin-left: 10px;
+}
+.projectMainRight{
+    margin-left: 5px;
+}
+.projectMainTitle{
+    display: flex;
+    font-family: 'Nunito', sans-serif;
+    font-size: 130%;
+    margin-top: 12px;
+    margin-left: 7px;
+    color: white;
+}
+.projectInfo{
+    display: flex;
+    color: rgba(255, 255, 255, 0.629);
+    font-family: 'Nunito', sans-serif;
+    font-size: 110%;
+    margin-left: 6px;
+    margin-top: 2px;
+}
