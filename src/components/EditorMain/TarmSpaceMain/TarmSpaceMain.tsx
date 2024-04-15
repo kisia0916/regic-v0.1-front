@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./TarmSpaceMain.css"
 
 function TarmSpaceMain(){
-    const [inputFirstText,setInputFirstText] = useState<string>("firstText:")
+    const [inputFirstText,setInputFirstText] = useState<string>("firsteeeeeeeeeeeeeeeeeeeeeText:")
     const [nowLine,setNowLine] = useState<string>(inputFirstText)
     const [nowCmd,setNowCmd] = useState<string>("")
     const [termTexts,setTermTexts] = useState<string[]>([])
@@ -26,7 +26,7 @@ function TarmSpaceMain(){
                     // return index === termTexts.length-1?<div className="termTextWarp"><span className="termText">{i}</span><div className="termSpaceCursor"></div>
                     // </div>:<div className="termTextWarp"><span className="termText">{i}</span><br/></div>
                 })}
-                <textarea contentEditable="true" className="termInputBox" style={{height:`calc(100% - ${25*termTexts.length}px`}} onKeyDown={changeLine} onChange={inputTermText} value={nowLine}></textarea>
+                <textarea contentEditable="true" className="termInputBox" style={{height:"100%"}}  onKeyDown={changeLine} onChange={inputTermText} value={nowLine}></textarea>
             </div>
             {/* <textarea className="TermSpaceMainArea" onChange={(e)=>{inputTermText(e)}} value={nowLine}></textarea> */}
         </>
