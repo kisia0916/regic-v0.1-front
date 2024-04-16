@@ -1,0 +1,27 @@
+.EditorSpaceMain{
+    width: 95%;
+    height: 65vh;
+    overflow-y: auto;
+    background-color: #111318;
+    border-radius: 15px;
+    margin: auto;
+    margin-top: 5px;
+    border: solid 2px white;
+    display: flex;
+}
+.EditorSpaceMainLeft{
+    height: 100%;
+    width: 20px;
+    background-color: #2e333f;
+}
+.EditorSpaceLineNumber{
+    margin: auto;
+}
+.EditorSpaceLineNumberWarp{
+    width: 100%;
+    margin-top: 1px;
+    display: flex;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 90%;
+}
