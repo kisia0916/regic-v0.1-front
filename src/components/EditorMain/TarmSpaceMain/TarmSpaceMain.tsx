@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./TarmSpaceMain.css"
 
 function TarmSpaceMain(){
     const [inputFirstText,setInputFirstText] = useState<string>("firsteeeeeeeeeeeeeeeeeeeeeText:")
     const [nowLine,setNowLine] = useState<string>(inputFirstText)
     const [nowCmd,setNowCmd] = useState<string>("")
-    const [termTexts,setTermTexts] = useState<string[]>([])
-    
+    const [termTexts,setTermTexts] = useState<string[]>(["printText"])
+    const inputRef = useRef<any>()
+    const [logHeight,setLogHeight] = useState<number>(0)
     const inputTermText = (e:any)=>{
         const next = e.target.value.slice(inputFirstText.length)
         setNowCmd(next)
@@ -18,15 +19,18 @@ function TarmSpaceMain(){
             setNowLine("")
         }
     }
+    const selectTermSpace = ()=>{
+        inputRef.current.focus()
+    }
     return (
         <>
-        <div className="TermSpaceMain">
-                {termTexts.map((i,index)=>{
-                   return <><div className="termTextWarp"><span className="termText">{i}</span><br/></div></>
-                    // return index === termTexts.length-1?<div className="termTextWarp"><span className="termText">{i}</span><div className="termSpaceCursor"></div>
-                    // </div>:<div className="termTextWarp"><span className="termText">{i}</span><br/></div>
-                })}
-                <textarea contentEditable="true" className="termInputBox" style={{height:"100%"}}  onKeyDown={changeLine} onChange={inputTermText} value={nowLine}></textarea>
+        <div className="TermSpaceMain" onClick={selectTermSpace}>
+            {termTexts.map((i,index)=>{
+            return <><div className="termTextWarp"><span className="termText">{i}</span><br/></div></>
+                // return index === termTexts.length-1?<div className="termTextWarp"><span className="termText">{i}</span><div className="termSpaceCursor"></div>
+                // </div>:<div className="termTextWarp"><span className="termText">{i}</span><br/></div>
+            })}
+            <textarea contentEditable="true" className="termInputBox" style={{height:"50px"}} ref={inputRef} onKeyDown={changeLine} onChange={inputTermText} value={nowLine}></textarea>
             </div>
             {/* <textarea className="TermSpaceMainArea" onChange={(e)=>{inputTermText(e)}} value={nowLine}></textarea> */}
         </>
