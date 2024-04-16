@@ -1,6 +1,6 @@
 .EditorSpaceMain{
-    width: 95%;
     height: 65vh;
+    width: 98%;
     overflow-y: auto;
     background-color: #111318;
     border-radius: 15px;
@@ -11,8 +11,11 @@
 }
 .EditorSpaceMainLeft{
     height: 100%;
-    width: 20px;
-    background-color: #2e333f;
+    /* background-color: #2e333f; */
+}
+.EditorSpaceMainLeftWarp{
+    margin-left: 8px;
+    margin-top: 10px;
 }
 .EditorSpaceLineNumber{
     margin: auto;
@@ -24,4 +27,21 @@
     color: white;
     font-family: 'Nunito', sans-serif;
     font-size: 90%;
+}
+.EditorSpaceMainRight{
+    width: 100%;
+}
+.EditorSpaceMainEditArea{
+    overflow-x: scroll;
+    overflow-y: hidden;
+    margin-top: 7px;
+    margin-left: 4px;
+    width: 100%;
+    background-color: #11131800;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    line-height: 21px;
+    font-size: 110%;
+    border: none;
+    outline: none;
 }
