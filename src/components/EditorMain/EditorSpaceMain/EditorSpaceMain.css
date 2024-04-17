@@ -30,13 +30,15 @@
 }
 .EditorSpaceMainRight{
     width: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 .EditorSpaceMainEditArea{
-    overflow-x: scroll;
+    overflow-x: auto;
     overflow-y: hidden;
     margin-top: 7px;
     margin-left: 4px;
-    width: 100%;
+    min-width: 100%;
     background-color: #11131800;
     color: white;
     font-family: 'Nunito', sans-serif;
@@ -44,4 +46,6 @@
     font-size: 110%;
     border: none;
     outline: none;
+    overflow-wrap: none;
+    white-space:nowrap;
 }
