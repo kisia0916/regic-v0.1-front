@@ -1,3 +1,7 @@
 .EditorMain{
     
 }
+.EditorContentMain{
+    width: 100%;
+    position: absolute;
+}

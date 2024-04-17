@@ -1,0 +1,12 @@
+.FileViewerFileMainIcon{
+    width: 20px;
+    height: 20px;
+}
+.FileViewerFileMain{
+    display: flex;
+    color: white;
+    margin-top:5px;
+}
+.FileViewerFileName{
+    margin-left: 5px;
+}

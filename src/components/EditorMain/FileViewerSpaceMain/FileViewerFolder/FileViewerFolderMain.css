@@ -1,0 +1,11 @@
+.FileViewerFolderMain{
+    display: flex;
+    color: white;
+    margin-top: 5px;
+}
+.FileViewerFolderMainIcon{
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+
+}
