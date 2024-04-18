@@ -3,12 +3,19 @@ import "./FileViewerSpaceMain.css"
 import FileViewerFolderMain from "./FileViewerFolder/FileViewerFolderMain";
 import FileViewerFileMain from "./FileViewerFile/FileViewerFileMain";
 import FileIndentSpace from "./FileIndentSpace/FileIndentSpaceMain";
-import { createFileStructure } from "./createFileStructureMain";
+import { createFileStructure, openFile } from "./createFileStructureMain";
 
 function FileViewerSpaceMain(){
-    const [fileStructure,setFileStructure] = useState<any>(["hikakin","seikin",["test"],["test",["tset"]]])
+    const [fileStructure,setFileStructure] = useState<any>([{type:"file",name:"hikakin",id:[1]},
+                                                            {type:"file",name:"seikin",id:[2]},
+                                                            {type:"folder",status:"open",id:[3], content:[{type:"file",name:"seikin",id:[3,1]},
+                                                                                                  {type:"folder",status:"open", id:[3,2],content:[{type:"file",name:"file32",id:[3,2,1]}]}]},
+                                                            {type:"folder",status:"open",content:["test"]}])
     const [fileStructureContent,setFileStructureContent] = useState<React.ReactNode[]>([])
+    const changeFolderState = (targetIndex:number[])=>{
+    }
     useEffect(()=>{
+        console.log(openFile(fileStructure,[2,1,0]))
         //ファイル構造生成
         let floorCounter:number = 0
         let returnElement:any =  []

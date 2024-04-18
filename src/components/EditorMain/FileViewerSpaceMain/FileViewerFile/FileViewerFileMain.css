@@ -3,6 +3,7 @@
     height: 20px;
 }
 .FileViewerFileMain{
+    width: 100%;
     display: flex;
     color: white;
     margin-top:5px;
