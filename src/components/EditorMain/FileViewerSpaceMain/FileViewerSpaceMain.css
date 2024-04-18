@@ -21,4 +21,5 @@
     height: calc(100% - 50px);
 }
 .FileViewerSpaceWarp{
+    margin-left: 10px;
 }
