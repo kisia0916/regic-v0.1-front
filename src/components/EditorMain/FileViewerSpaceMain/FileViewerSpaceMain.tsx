@@ -6,7 +6,7 @@ import FileIndentSpace from "./FileIndentSpace/FileIndentSpaceMain";
 import { createFileStructure, createFileStructure2, openFile } from "./createFileStructureMain";
 import { fileStructureInterface, folderStructureInterface } from "../../../interface/fileStrructure";
 
-function FileViewerSpaceMain(){
+function FileViewerSpaceMain(props:{viewerStatus:"open"|"close",changeStatus:any}){
     // const [fileStructure,setFileStructure] = useState<any>([{type:"file",name:"hikakin",id:[1]},
     //                                                         {type:"file",name:"seikin",id:[2]},
     //                                                         {type:"folder",status:"open",id:[3], content:[{type:"file",name:"seikin",id:[3,1]},
@@ -57,24 +57,29 @@ function FileViewerSpaceMain(){
         }
     }
     return (
-        <div className="FileViewerSpaceMain">
-            <div className="FileViewerSpaceTop">
-                <span className="fileViewerSpaceProjectName">Regic-v0.1-beta</span>
-            </div>
-            <div className="FileViewerSpaceBottom">
-                <div className="FileViewerSpaceWarp">
-                    {fileStructureContent.map((i:any,index:number)=>{
-                        let indent = i[0].map((x:any)=>{
-                            return x
-                        })
-                        return <div style={{display:"flex"}} id={`fileViewerIndex:${index}`} onClick={changeFolderState}>
-                            {indent}
-                            {i[1]}
-                        </div>
-                    })}
+        <>
+            {props.viewerStatus === "open"?
+                <div className="FileViewerSpaceMain">
+                <div className="FileViewerSpaceTop">
+                    <img src="/icon/menu_line.svg" alt="" className="FileViewerSpaceMenuIcon" onClick={()=>props.changeStatus()}/>
+                    <span className="fileViewerSpaceProjectName">Regic-v0.1-beta</span>
+                </div>
+                <div className="FileViewerSpaceBottom">
+                    <div className="FileViewerSpaceWarp">
+                        {fileStructureContent.map((i:any,index:number)=>{
+                            let indent = i[0].map((x:any)=>{
+                                return x
+                            })
+                            return <div style={{display:"flex"}} id={`fileViewerIndex:${index}`} onClick={changeFolderState}>
+                                {indent}
+                                {i[1]}
+                            </div>
+                        })}
+                    </div>
                 </div>
             </div>
-        </div>
+        :<></>}
+    </>
     )
 }
 
