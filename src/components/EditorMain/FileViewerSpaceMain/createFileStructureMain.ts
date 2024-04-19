@@ -63,20 +63,30 @@ export const createFileStructure = (fileStructure:any,FileIndent:()=>React.React
 }
 
 export const createFileStructure2 = (fileStructure:any,FileIndent:()=>React.ReactNode,FileViewerFolder:(name:string)=>React.ReactNode,FileViewerFile:()=>React.ReactNode)=>{
-    let returnELement:React.ReactNode[];
+    let returnELement:React.ReactNode[] = [];
     fileStructure.forEach((i:any,index:number)=>{
-    let indentSpace:React.ReactNode[] = [];
+        let indentSpace:React.ReactNode[] = [];
+        console.log(i)
         for (let k:number = 0;i.indent>k;k++){
             indentSpace.push(FileIndent())
         }
         if (i.type === "folder"){
             returnELement.push([indentSpace,FileViewerFolder("testFile")])
         }else{
-            if (i.status === "open"){
-                
+            let statusCounter:number = 0
+            i.str.forEach((i:number)=>{
+                if (fileStructure[i].status === "open"){
+                    statusCounter+=1
+                }
+            })
+            if (i.str.length === statusCounter){
+                returnELement.push([indentSpace,FileViewerFile()])
             }
+            // if ( === "open"){
+            // }
         }
     })
+    return returnELement
 }
 
 export const openFile = (structure:any,conIndex:number[]):{type:"file",name:string}=>{

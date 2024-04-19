@@ -3,7 +3,7 @@ import "./FileViewerSpaceMain.css"
 import FileViewerFolderMain from "./FileViewerFolder/FileViewerFolderMain";
 import FileViewerFileMain from "./FileViewerFile/FileViewerFileMain";
 import FileIndentSpace from "./FileIndentSpace/FileIndentSpaceMain";
-import { createFileStructure, openFile } from "./createFileStructureMain";
+import { createFileStructure, createFileStructure2, openFile } from "./createFileStructureMain";
 
 function FileViewerSpaceMain(){
     // const [fileStructure,setFileStructure] = useState<any>([{type:"file",name:"hikakin",id:[1]},
@@ -15,19 +15,21 @@ function FileViewerSpaceMain(){
         {indent:0,type:"file",name:"main.py",str:[]},
         {indent:0,type:"file",name:"sub.py",str:[]},
         {indent:0,type:"folder",name:"firstfolder",status:"open",str:[]},
-        {indent:1,type:"file",name:"module.py",str:[2]}
+        {indent:1,type:"file",name:"module.py",str:[2]},
+        {indent:1,type:"folder",name:"firstfolder",status:"open",str:[2]},
+        {indent:2,type:"file",name:"module.py",str:[2,4]},
     ])
     const [fileStructureContent,setFileStructureContent] = useState<React.ReactNode[]>([])
     const changeFolderState = (targetIndex:number[])=>{
     }
     useEffect(()=>{
-        console.log(openFile(fileStructure,[2,1,0]))
         //ファイル構造生成]
-        const structureData:any = createFileStructure(fileStructure,getElements.Indent,getElements.folder,getElements.file)
+        const structureData:any = createFileStructure2(fileStructure,getElements.Indent,getElements.folder,getElements.file)
+        console.log(structureData)
         if (structureData){
             setFileStructureContent(structureData)
         }
-    },[fileStructure])
+    },[])
     const getElements = {
         file:():React.ReactNode=>{
             return <FileViewerFileMain/>
