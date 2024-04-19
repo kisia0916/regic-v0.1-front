@@ -6,25 +6,28 @@ import FileIndentSpace from "./FileIndentSpace/FileIndentSpaceMain";
 import { createFileStructure, openFile } from "./createFileStructureMain";
 
 function FileViewerSpaceMain(){
-    const [fileStructure,setFileStructure] = useState<any>([{type:"file",name:"hikakin",id:[1]},
-                                                            {type:"file",name:"seikin",id:[2]},
-                                                            {type:"folder",status:"open",id:[3], content:[{type:"file",name:"seikin",id:[3,1]},
-                                                                                                  {type:"folder",status:"open", id:[3,2],content:[{type:"file",name:"file32",id:[3,2,1]}]}]},
-                                                            {type:"folder",status:"open",content:["test"]}])
+    // const [fileStructure,setFileStructure] = useState<any>([{type:"file",name:"hikakin",id:[1]},
+    //                                                         {type:"file",name:"seikin",id:[2]},
+    //                                                         {type:"folder",status:"open",id:[3], content:[{type:"file",name:"seikin",id:[3,1]},
+    //                                                                                               {type:"folder",status:"open", id:[3,2],content:[{type:"file",name:"file32",id:[3,2,1]}]}]},
+    //                                                         {type:"folder",status:"open",content:["test"]}])
+    const [fileStructure,setFileStructure] = useState<any>([
+        {indent:0,type:"file",name:"main.py",str:[]},
+        {indent:0,type:"file",name:"sub.py",str:[]},
+        {indent:0,type:"folder",name:"firstfolder",status:"open",str:[]},
+        {indent:1,type:"file",name:"module.py",str:[2]}
+    ])
     const [fileStructureContent,setFileStructureContent] = useState<React.ReactNode[]>([])
     const changeFolderState = (targetIndex:number[])=>{
     }
     useEffect(()=>{
         console.log(openFile(fileStructure,[2,1,0]))
-        //ファイル構造生成
-        let floorCounter:number = 0
-        let returnElement:any =  []
-        console.log("hel")
+        //ファイル構造生成]
         const structureData:any = createFileStructure(fileStructure,getElements.Indent,getElements.folder,getElements.file)
         if (structureData){
             setFileStructureContent(structureData)
         }
-    },[])
+    },[fileStructure])
     const getElements = {
         file:():React.ReactNode=>{
             return <FileViewerFileMain/>

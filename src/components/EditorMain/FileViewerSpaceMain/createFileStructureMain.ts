@@ -2,6 +2,7 @@ import React from "react"
 import FileViewerFileMain from "./FileViewerFile/FileViewerFileMain";
 import FileViewerFolderMain from "./FileViewerFolder/FileViewerFolderMain";
 import { DefaultDeserializer } from "v8";
+import { NumberLiteralType } from "typescript";
 
 let returnElement:any =  []
 let mainStructure:any[] = []
@@ -18,6 +19,7 @@ export const createFileStructure = (fileStructure:any,FileIndent:()=>React.React
     if (!startGene){
         hostLoopFlg = true
         startGene = true
+
         returnElement = []
     }
     console.log(fileStructure)
@@ -58,6 +60,23 @@ export const createFileStructure = (fileStructure:any,FileIndent:()=>React.React
         floorCounter = 0
         return returnElement
     }
+}
+
+export const createFileStructure2 = (fileStructure:any,FileIndent:()=>React.ReactNode,FileViewerFolder:(name:string)=>React.ReactNode,FileViewerFile:()=>React.ReactNode)=>{
+    let returnELement:React.ReactNode[];
+    fileStructure.forEach((i:any,index:number)=>{
+    let indentSpace:React.ReactNode[] = [];
+        for (let k:number = 0;i.indent>k;k++){
+            indentSpace.push(FileIndent())
+        }
+        if (i.type === "folder"){
+            returnELement.push([indentSpace,FileViewerFolder("testFile")])
+        }else{
+            if (i.status === "open"){
+                
+            }
+        }
+    })
 }
 
 export const openFile = (structure:any,conIndex:number[]):{type:"file",name:string}=>{
