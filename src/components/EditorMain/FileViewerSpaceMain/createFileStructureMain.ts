@@ -70,21 +70,30 @@ export const createFileStructure2 = (fileStructure:any,FileIndent:()=>React.Reac
         for (let k:number = 0;i.indent>k;k++){
             indentSpace.push(FileIndent())
         }
-        if (i.type === "folder"){
-            returnELement.push([indentSpace,FileViewerFolder("testFile")])
-        }else{
-            let statusCounter:number = 0
-            i.str.forEach((i:number)=>{
-                if (fileStructure[i].status === "open"){
-                    statusCounter+=1
-                }
-            })
-            if (i.str.length === statusCounter){
-                returnELement.push([indentSpace,FileViewerFile()])
+        let statusCounter:number = 0
+        i.str.forEach((i:number)=>{
+            if (fileStructure[i].status === "open"){
+                statusCounter+=1
             }
-            // if ( === "open"){
-            // }
+        })
+        if (i.str.length === statusCounter){
+            if (i.type === "folder"){
+                returnELement.push([indentSpace,FileViewerFolder("testFile")])
+            }else{
+                let statusCounter:number = 0
+                i.str.forEach((i:number)=>{
+                    if (fileStructure[i].status === "open"){
+                        statusCounter+=1
+                    }
+                })
+                if (i.str.length === statusCounter){
+                    returnELement.push([indentSpace,FileViewerFile()])
+                }
+                // if ( === "open"){
+                // }
+            }
         }
+
     })
     return returnELement
 }

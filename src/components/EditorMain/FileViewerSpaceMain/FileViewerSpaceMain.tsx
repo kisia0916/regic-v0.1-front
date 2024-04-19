@@ -4,6 +4,7 @@ import FileViewerFolderMain from "./FileViewerFolder/FileViewerFolderMain";
 import FileViewerFileMain from "./FileViewerFile/FileViewerFileMain";
 import FileIndentSpace from "./FileIndentSpace/FileIndentSpaceMain";
 import { createFileStructure, createFileStructure2, openFile } from "./createFileStructureMain";
+import { fileStructureInterface, folderStructureInterface } from "../../../interface/fileStrructure";
 
 function FileViewerSpaceMain(){
     // const [fileStructure,setFileStructure] = useState<any>([{type:"file",name:"hikakin",id:[1]},
@@ -19,8 +20,22 @@ function FileViewerSpaceMain(){
         {indent:1,type:"folder",name:"firstfolder",status:"open",str:[2]},
         {indent:2,type:"file",name:"module.py",str:[2,4]},
     ])
+    const [nowSelectFolder,setNowSelectFolder] = useState<fileStructureInterface|folderStructureInterface>()
     const [fileStructureContent,setFileStructureContent] = useState<React.ReactNode[]>([])
-    const changeFolderState = (targetIndex:number[])=>{
+    const changeFolderState = (e:any)=>{
+        const nowStructure = [...fileStructure]
+        console.log(e.currentTarget.id)
+        const contentIndex:number = e.currentTarget.id.split(":")[1] as number
+        if (fileStructure[contentIndex].type === "folder"){
+            console.log("hello")
+            if (fileStructure[contentIndex].status === "open"){
+                nowStructure[contentIndex].status = "close"
+            }else{
+                nowStructure[contentIndex].status = "open"
+            }
+        }
+        console.log(nowStructure)
+        setFileStructure(nowStructure)
     }
     useEffect(()=>{
         //ファイル構造生成]
@@ -29,7 +44,7 @@ function FileViewerSpaceMain(){
         if (structureData){
             setFileStructureContent(structureData)
         }
-    },[])
+    },[fileStructure])
     const getElements = {
         file:():React.ReactNode=>{
             return <FileViewerFileMain/>
@@ -41,7 +56,6 @@ function FileViewerSpaceMain(){
             return <FileIndentSpace/>
         }
     }
-
     return (
         <div className="FileViewerSpaceMain">
             <div className="FileViewerSpaceTop">
@@ -49,11 +63,11 @@ function FileViewerSpaceMain(){
             </div>
             <div className="FileViewerSpaceBottom">
                 <div className="FileViewerSpaceWarp">
-                    {fileStructureContent.map((i:any)=>{
+                    {fileStructureContent.map((i:any,index:number)=>{
                         let indent = i[0].map((x:any)=>{
                             return x
                         })
-                        return <div style={{display:"flex"}}>
+                        return <div style={{display:"flex"}} id={`fileViewerIndex:${index}`} onClick={changeFolderState}>
                             {indent}
                             {i[1]}
                         </div>
