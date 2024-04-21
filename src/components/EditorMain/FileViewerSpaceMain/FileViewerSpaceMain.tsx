@@ -6,6 +6,8 @@ import FileIndentSpace from "./FileIndentSpace/FileIndentSpaceMain";
 import { createFileStructure, createFileStructure2, createFileStructure3, openFile } from "./createFileStructureMain";
 import { fileStructureInterface, folderStructureInterface } from "../../../interface/fileStrructure";
 import { IndentStyle } from "typescript";
+import AddFileButtonMain from "./AddFileButton/AddFileButtomMain";
+import AddFolderButtonMain from "./AddFolderButton/AddFolderButtonMain";
 
 function FileViewerSpaceMain(props:{viewerStatus:"open"|"close",changeStatus:any}){
     // const [fileStructure,setFileStructure] = useState<any>([{type:"file",name:"hikakin",id:[1]},
@@ -73,6 +75,10 @@ function FileViewerSpaceMain(props:{viewerStatus:"open"|"close",changeStatus:any
                 <div className="FileViewerSpaceTop">
                     <img src="/icon/menu_line.svg" alt="" className="FileViewerSpaceMenuIcon" onClick={()=>props.changeStatus()}/>
                     <span className="fileViewerSpaceProjectName">Regic-v0.1-beta</span>
+                </div>
+                <div className="fileViewerNewButtons">
+                    <AddFileButtonMain/>
+                    <AddFolderButtonMain/>
                 </div>
                 <div className="FileViewerSpaceBottom">
                     <div className="FileViewerSpaceWarp">
