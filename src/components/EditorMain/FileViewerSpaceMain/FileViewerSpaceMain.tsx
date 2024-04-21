@@ -3,8 +3,9 @@ import "./FileViewerSpaceMain.css"
 import FileViewerFolderMain from "./FileViewerFolder/FileViewerFolderMain";
 import FileViewerFileMain from "./FileViewerFile/FileViewerFileMain";
 import FileIndentSpace from "./FileIndentSpace/FileIndentSpaceMain";
-import { createFileStructure, createFileStructure2, openFile } from "./createFileStructureMain";
+import { createFileStructure, createFileStructure2, createFileStructure3, openFile } from "./createFileStructureMain";
 import { fileStructureInterface, folderStructureInterface } from "../../../interface/fileStrructure";
+import { IndentStyle } from "typescript";
 
 function FileViewerSpaceMain(props:{viewerStatus:"open"|"close",changeStatus:any}){
     // const [fileStructure,setFileStructure] = useState<any>([{type:"file",name:"hikakin",id:[1]},
@@ -12,39 +13,48 @@ function FileViewerSpaceMain(props:{viewerStatus:"open"|"close",changeStatus:any
     //                                                         {type:"folder",status:"open",id:[3], content:[{type:"file",name:"seikin",id:[3,1]},
     //                                                                                               {type:"folder",status:"open", id:[3,2],content:[{type:"file",name:"file32",id:[3,2,1]}]}]},
     //                                                         {type:"folder",status:"open",content:["test"]}])
-    const [fileStructure,setFileStructure] = useState<any>([
-        {indent:0,type:"file",name:"main.py",str:[]},
-        {indent:0,type:"file",name:"sub.py",str:[]},
-        {indent:0,type:"folder",name:"firstfolder",status:"open",str:[]},
-        {indent:1,type:"file",name:"module.py",str:[2]},
-        {indent:1,type:"folder",name:"firstfolder",status:"open",str:[2]},
-        {indent:2,type:"file",name:"module.py",str:[2,4]},
+    // const [fileStructure,setFileStructure] = useState<any>([
+    //     {id:1,indent:0,type:"file",name:"main.py",str:[]},
+    //     {id:2,indent:0,type:"file",name:"sub.py",str:[]},
+    //     {id:3,indent:0,type:"folder",name:"firstfolder",status:"open",str:[]},
+    //     {id:4,indent:1,type:"file",name:"module.py",str:[3]},
+    //     {id:5,indent:1,type:"folder",name:"firstfolder",status:"open",str:[3]},
+    //   
+    //   {id:6,indent:2,type:"file",name:"module.py",str:[3,5]},
+    // ])
+
+    const [folderStructure,setFolderStructure] = useState<any>([
+        {id:"fo:2",isTop:true,type:"folder",name:"folderTest",status:"open",str:[{type:"folder",id:"fo:1"},{type:"file",id:"fi:1"}]},
+        {id:"fo:1",isTop:false,type:"folder",name:"folderTest",status:"open",str:[{type:"file",id:"fi:1"}]},
     ])
+    const [fileStrructure,setFileStructure] = useState<any>([
+        {id:"fi:1",type:"file",name:"main.py"},
+        {id:"fi:2",type:"file",name:"sub.py"}
+    ])
+
     const [nowSelectFolder,setNowSelectFolder] = useState<fileStructureInterface|folderStructureInterface>()
     const [fileStructureContent,setFileStructureContent] = useState<React.ReactNode[]>([])
     const changeFolderState = (e:any)=>{
-        const nowStructure = [...fileStructure]
+        const nowStructure = [...folderStructure]
         console.log(e.currentTarget.id)
         const contentIndex:number = e.currentTarget.id.split(":")[1] as number
-        if (fileStructure[contentIndex].type === "folder"){
-            console.log("hello")
-            if (fileStructure[contentIndex].status === "open"){
-                nowStructure[contentIndex].status = "close"
-            }else{
-                nowStructure[contentIndex].status = "open"
-            }
+        if (folderStructure[contentIndex].status === "open"){
+            nowStructure[contentIndex].status = "close"
+        }else{
+            nowStructure[contentIndex].status = "open"
         }
         console.log(nowStructure)
         setFileStructure(nowStructure)
     }
     useEffect(()=>{
         //ファイル構造生成]
-        const structureData:any = createFileStructure2(fileStructure,getElements.Indent,getElements.folder,getElements.file)
+        // const structureData:any = createFileStructure2(fileStructure,getElements.Indent,getElements.folder,getElements.file)
+        const structureData:any = createFileStructure3(fileStrructure,folderStructure,getElements.Indent,getElements.folder,getElements.file)
         console.log(structureData)
         if (structureData){
             setFileStructureContent(structureData)
         }
-    },[fileStructure])
+    },[fileStrructure,folderStructure])
     const getElements = {
         file:():React.ReactNode=>{
             return <FileViewerFileMain/>
@@ -70,7 +80,10 @@ function FileViewerSpaceMain(props:{viewerStatus:"open"|"close",changeStatus:any
                             let indent = i[0].map((x:any)=>{
                                 return x
                             })
-                            return <div style={{display:"flex"}} id={`fileViewerIndex:${index}`} onClick={changeFolderState}>
+                            return i[2] === 'folder'?<div style={{display:"flex"}} id={`fileViewerIndex:${index}`} onClick={changeFolderState}>
+                                {indent}
+                                {i[1]}
+                            </div>:<div style={{display:"flex"}} id={`fileViewerIndex:${index}`}>
                                 {indent}
                                 {i[1]}
                             </div>

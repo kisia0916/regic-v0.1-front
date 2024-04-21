@@ -2,7 +2,7 @@ import React from "react"
 import FileViewerFileMain from "./FileViewerFile/FileViewerFileMain";
 import FileViewerFolderMain from "./FileViewerFolder/FileViewerFolderMain";
 import { DefaultDeserializer } from "v8";
-import { NumberLiteralType } from "typescript";
+import { NumberLiteralType, ShorthandPropertyAssignment } from "typescript";
 
 let returnElement:any =  []
 let mainStructure:any[] = []
@@ -71,8 +71,9 @@ export const createFileStructure2 = (fileStructure:any,FileIndent:()=>React.Reac
             indentSpace.push(FileIndent())
         }
         let statusCounter:number = 0
-        i.str.forEach((i:number)=>{
-            if (fileStructure[i].status === "open"){
+        i.str.forEach((k:number)=>{
+            const strContent = fileStructure.find((s:any)=>s.id === k)
+            if (strContent.status === "open"){
                 statusCounter+=1
             }
         })
@@ -81,8 +82,9 @@ export const createFileStructure2 = (fileStructure:any,FileIndent:()=>React.Reac
                 returnELement.push([indentSpace,FileViewerFolder("testFile")])
             }else{
                 let statusCounter:number = 0
-                i.str.forEach((i:number)=>{
-                    if (fileStructure[i].status === "open"){
+                i.str.forEach((k:number)=>{
+                    const strContent = fileStructure.find((s:any)=>s.id === k)
+                    if (strContent.status === "open"){
                         statusCounter+=1
                     }
                 })
@@ -117,4 +119,50 @@ export const openFile = (structure:any,conIndex:number[]):{type:"file",name:stri
         }
     })
     return returnData
+}
+
+let indentNum:number = 0
+
+const createIndent = (indent:number,FileIndent:any):React.ReactNode[]=>{
+    let indentSpace:React.ReactNode[] = []
+    for (let s:number = 0;indent>s;s++){
+        indentSpace.push(FileIndent())
+    }
+    return indentSpace
+}
+const createInFolderSrtructure = (setReturnElement:any,fileStructure:any,folderStructure:any,s:{type:string,id:string},FileIndent:()=>React.ReactNode,FileViewerFolder:(name:string)=>React.ReactNode,FileViewerFile:()=>React.ReactNode)=>{
+    if (s.type === "folder"){
+        indentNum+=1
+        const content = folderStructure.find((i:any)=>i.id === s.id)
+        const IndentSpace:React.ReactNode[] = createIndent(indentNum,FileIndent)
+        setReturnElement([IndentSpace,FileViewerFolder("test"),"folder"])
+        if (content){
+            if (content.status === 'open')
+                content.str.forEach((i:any)=>{
+                    createInFolderSrtructure(setReturnElement,fileStructure,folderStructure,i,FileIndent,FileViewerFolder,FileViewerFile)
+                })
+        }
+    }else{
+        const IndentSpace:React.ReactNode[] = createIndent(indentNum+=1,FileIndent)
+        setReturnElement([IndentSpace,FileViewerFile(),'file'])
+    }
+}
+export const createFileStructure3 = (fileStructure:any,folderStructure:any,FileIndent:()=>React.ReactNode,FileViewerFolder:(name:string)=>React.ReactNode,FileViewerFile:()=>React.ReactNode)=>{
+    let returnElement:React.ReactNode[] = []
+    const setReturnElement = (elementData:any[])=>{
+        returnElement.push(elementData)
+    }
+    folderStructure.forEach((i:any)=>{
+        if (i.isTop){
+            setReturnElement([[],FileViewerFolder("test"),"folder"])
+            if (i.status === "open"){
+                //内部フォルダ生成
+                i.str.forEach((s:any)=>{
+                    indentNum = 0
+                    createInFolderSrtructure(setReturnElement,fileStructure,folderStructure,s,FileIndent,FileViewerFolder,FileViewerFile)
+                })
+            }
+        }
+    })
+    return returnElement
 }
