@@ -135,7 +135,7 @@ const createInFolderSrtructure = (setReturnElement:any,fileStructure:any,folderS
         indentNum+=1
         const content = folderStructure.find((i:any)=>i.id === s.id)
         const IndentSpace:React.ReactNode[] = createIndent(indentNum,FileIndent)
-        setReturnElement([IndentSpace,FileViewerFolder("test"),"folder"])
+        setReturnElement([IndentSpace,FileViewerFolder("test"),"folder",s.id])
         if (content){
             if (content.status === 'open')
                 content.str.forEach((i:any)=>{
@@ -154,7 +154,7 @@ export const createFileStructure3 = (fileStructure:any,folderStructure:any,FileI
     }
     folderStructure.forEach((i:any)=>{
         if (i.isTop){
-            setReturnElement([[],FileViewerFolder("test"),"folder"])
+            setReturnElement([[],FileViewerFolder("test"),"folder",i.id])
             if (i.status === "open"){
                 //内部フォルダ生成
                 i.str.forEach((s:any)=>{

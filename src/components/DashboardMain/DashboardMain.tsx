@@ -31,12 +31,21 @@ function DashboardMain(){
             </div>
             <div className="dashboardContentMain">
                     <NewButtonMain/>
+                    {/* <MachineMain/>
                     <MachineMain/>
                     <MachineMain/>
                     <MachineMain/>
                     <MachineMain/>
-                    <MachineMain/>
-                    <MachineMain/>
+                    <MachineMain/> */}
+                    <ProjectMain/>
+                    <ProjectMain/>
+                    <ProjectMain/>
+                    <ProjectMain/>
+                    <ProjectMain/>
+                    <ProjectMain/>
+                    <ProjectMain/>
+                    <ProjectMain/>
+                    <ProjectMain/>
 
             </div>
         </div>

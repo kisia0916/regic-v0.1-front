@@ -28,10 +28,14 @@ function FileViewerSpaceMain(props:{viewerStatus:"open"|"close",changeStatus:any
     const [folderStructure,setFolderStructure] = useState<any>([
         {id:"fo:2",isTop:true,type:"folder",name:"folderTest",status:"open",str:[{type:"folder",id:"fo:1"},{type:"file",id:"fi:1"}]},
         {id:"fo:1",isTop:false,type:"folder",name:"folderTest",status:"open",str:[{type:"file",id:"fi:1"}]},
+        {id:"fo:3",isTop:true,type:"folder",name:"folderTest",status:"open",str:[{type:"file",id:"fi:3"}]},
+
     ])
     const [fileStrructure,setFileStructure] = useState<any>([
         {id:"fi:1",type:"file",name:"main.py"},
-        {id:"fi:2",type:"file",name:"sub.py"}
+        {id:"fi:2",type:"file",name:"sub.py"},
+        {id:"fi:3",type:"file",name:"main.py"},
+        {id:"fi:4",type:"file",name:"sub.py"}
     ])
 
     const [nowSelectFolder,setNowSelectFolder] = useState<fileStructureInterface|folderStructureInterface>()
@@ -39,7 +43,7 @@ function FileViewerSpaceMain(props:{viewerStatus:"open"|"close",changeStatus:any
     const changeFolderState = (e:any)=>{
         const nowStructure = [...folderStructure]
         console.log(e.currentTarget.id)
-        const contentIndex:number = e.currentTarget.id.split(":")[1] as number
+        const contentIndex = folderStructure.findIndex((i:any)=>i.id === e.currentTarget.id)
         if (folderStructure[contentIndex].status === "open"){
             nowStructure[contentIndex].status = "close"
         }else{
@@ -86,7 +90,7 @@ function FileViewerSpaceMain(props:{viewerStatus:"open"|"close",changeStatus:any
                             let indent = i[0].map((x:any)=>{
                                 return x
                             })
-                            return i[2] === 'folder'?<div style={{display:"flex"}} id={`fileViewerIndex:${index}`} onClick={changeFolderState}>
+                            return i[2] === 'folder'?<div style={{display:"flex"}} id={i[3]} onClick={changeFolderState}>
                                 {indent}
                                 {i[1]}
                             </div>:<div style={{display:"flex"}} id={`fileViewerIndex:${index}`}>
