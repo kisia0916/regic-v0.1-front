@@ -30,6 +30,5 @@
 .fileViewerNewButtons{
     width: 100%;
     height: 40px;
-    background-color: red;
     display: flex;
 }

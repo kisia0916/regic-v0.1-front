@@ -1,8 +1,21 @@
 .AddFolderButtonMain{
     width: 48%;
     height: 80%;
-    background-color: blue;
+    background-color: rgb(63, 63, 189);
     margin: auto;
     border-radius: 5px;
-
+    display: flex;
+}
+.AddFolderButtonText{
+    color: white;
+    margin-top: 1px;
+    margin-left: 3px;
+}
+.AddFolderButtonIcon{
+    width: 23px;
+    height: 23px;
+}
+.AddFolderButtonWarp{
+    display: flex;
+    margin: auto;
 }

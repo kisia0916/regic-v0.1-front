@@ -1,7 +1,21 @@
 .AddFileButtonMain{
     width: 48%;
     height: 80%;
-    background-color: blue;
+    background-color: rgb(63, 63, 189);
     margin: auto;
     border-radius: 5px;
+    display: flex;
+}
+.AddFileButtonText{
+    color: white;
+    margin-top: 1px;
+    margin-left: 3px;
+}
+.AddFileButtonIcon{
+    width: 23px;
+    height: 23px;
+}
+.AddFileButtonWarp{
+    display: flex;
+    margin: auto;
 }
