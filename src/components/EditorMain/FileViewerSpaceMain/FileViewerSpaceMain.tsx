@@ -9,7 +9,7 @@ import { IndentStyle } from "typescript";
 import AddFileButtonMain from "./AddFileButton/AddFileButtomMain";
 import AddFolderButtonMain from "./AddFolderButton/AddFolderButtonMain";
 
-function FileViewerSpaceMain(props:{viewerStatus:"open"|"close",changeStatus:any}){
+function FileViewerSpaceMain(props:{viewerStatus:"open"|"close",changeStatus:any,projectStructure:any}){
     // const [fileStructure,setFileStructure] = useState<any>([{type:"file",name:"hikakin",id:[1]},
     //                                                         {type:"file",name:"seikin",id:[2]},
     //                                                         {type:"folder",status:"open",id:[3], content:[{type:"file",name:"seikin",id:[3,1]},
@@ -24,26 +24,15 @@ function FileViewerSpaceMain(props:{viewerStatus:"open"|"close",changeStatus:any
     //   
     //   {id:6,indent:2,type:"file",name:"module.py",str:[3,5]},
     // ])
-
-    const [folderStructure,setFolderStructure] = useState<any>([
-        {id:"fo:2",isTop:true,type:"folder",name:"folderTest",status:"open",str:[{type:"folder",id:"fo:1"},{type:"file",id:"fi:1"}]},
-        {id:"fo:1",isTop:false,type:"folder",name:"folderTest",status:"open",str:[{type:"file",id:"fi:1"}]},
-        {id:"fo:3",isTop:true,type:"folder",name:"folderTest",status:"open",str:[{type:"file",id:"fi:3"}]},
-
-    ])
-    const [fileStrructure,setFileStructure] = useState<any>([
-        {id:"fi:1",type:"file",name:"main.py"},
-        {id:"fi:2",type:"file",name:"sub.py"},
-        {id:"fi:3",type:"file",name:"main.py"},
-        {id:"fi:4",type:"file",name:"sub.py"}
-    ])
+    const [folderStructure,setFolderStructure] = useState<any>(props.projectStructure.folder)
+    const [fileStrructure,setFileStructure] = useState<any>(props.projectStructure.file)
 
     const [nowSelectFolder,setNowSelectFolder] = useState<fileStructureInterface|folderStructureInterface>()
     const [fileStructureContent,setFileStructureContent] = useState<React.ReactNode[]>([])
     const changeFolderState = (e:any)=>{
         const nowStructure = [...folderStructure]
         console.log(e.currentTarget.id)
-        const contentIndex = folderStructure.findIndex((i:any)=>i.id === e.currentTarget.id)
+        const contentIndex = folderStructure.findIndex((i:any)=>i.folderId === e.currentTarget.id)
         if (folderStructure[contentIndex].status === "open"){
             nowStructure[contentIndex].status = "close"
         }else{
@@ -54,13 +43,14 @@ function FileViewerSpaceMain(props:{viewerStatus:"open"|"close",changeStatus:any
     }
     useEffect(()=>{
         //ファイル構造生成]
+        console.log(props.projectStructure)
         // const structureData:any = createFileStructure2(fileStructure,getElements.Indent,getElements.folder,getElements.file)
         const structureData:any = createFileStructure3(fileStrructure,folderStructure,getElements.Indent,getElements.folder,getElements.file)
         console.log(structureData)
         if (structureData){
             setFileStructureContent(structureData)
         }
-    },[fileStrructure,folderStructure])
+    },[fileStrructure,folderStructure,])
     const getElements = {
         file:():React.ReactNode=>{
             return <FileViewerFileMain/>

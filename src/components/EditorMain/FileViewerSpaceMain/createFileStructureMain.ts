@@ -154,7 +154,8 @@ export const createFileStructure3 = (fileStructure:any,folderStructure:any,FileI
     }
     folderStructure.forEach((i:any)=>{
         if (i.isTop){
-            setReturnElement([[],FileViewerFolder("test"),"folder",i.id])
+            console.log(i.folderId)
+            setReturnElement([[],FileViewerFolder("test"),"folder",i.folderId])
             if (i.status === "open"){
                 //内部フォルダ生成
                 i.str.forEach((s:any)=>{
